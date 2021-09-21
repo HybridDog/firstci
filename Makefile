@@ -9,4 +9,5 @@ build/png_percept_down: png_percept_down.c
 all: build/png_percept_down
 
 install:
-	cp build/png_percept_down /usr/bin/png_percept_down
+	mkdir -p $(DESTDIR)/bin
+	cp build/png_percept_down $(DESTDIR)/bin/png_percept_down
