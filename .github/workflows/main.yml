@@ -27,8 +27,8 @@ jobs:
 
       - name: Package
         run: |
-        mkdir -p upload
-        mv /tmp/firstci upload
+          mkdir -p upload
+          mv /tmp/firstci upload
 
       - uses: actions/upload-artifact@v2
         with:
