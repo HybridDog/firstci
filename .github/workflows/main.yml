@@ -1,36 +1,36 @@
 name: main
 on:
-	push:
-		branches:
-			- master
-		tags:
-			- '*'
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
 
 jobs:
-	build:
-		runs-on: ubuntu-20.04
-		steps:
-			- uses: actions/checkout@v2
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
 
-			- name: Install dependencies
-			  run: |
-			    sudo apt-get update
-			    sudo apt-get install -y --no-install-recommends libpng-dev g++
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libpng-dev g++
 
-			- name: Build
-			  run: |
-			    make -j "$(nproc)"
+      - name: Build
+        run: |
+          make -j "$(nproc)"
 
-			- name: Install
-			  run: |
-			    make install DESTDIR="/tmp/firstci"
+      - name: Install
+        run: |
+          make install DESTDIR="/tmp/firstci"
 
-			- name: Package
-			  run: |
-				mkdir -p upload
-				mv /tmp/firstci upload
+      - name: Package
+        run: |
+        mkdir -p upload
+        mv /tmp/firstci upload
 
-			- uses: actions/upload-artifact@v2
-			  with:
-			    name: "executable"
-			    path: upload/firstci/png_ssim_down
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "executable"
+          path: upload/firstci/png_ssim_down
