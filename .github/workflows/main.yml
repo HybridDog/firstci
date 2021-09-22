@@ -17,8 +17,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libpng-dev g++
 
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: g++_ubuntu_20.04
+          max-size: 50M
+
       - name: Build
         run: |
+          export PATH="/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH"
           make -j "$(nproc)"
 
       - name: Install
