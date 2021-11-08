@@ -12,10 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: build_schismtracker_appimage
+      - name: Download Schism Tracker and its dependencies
         run: |
           source ci_script.sh
           download_schismtracker_and_depends
+
+      - name: Build a Schism Tracker AppImage
+        run: |
+          source ci_script.sh
           build_schismtracker_appimage
 
       - uses: actions/upload-artifact@v2

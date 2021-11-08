@@ -13,9 +13,6 @@ download_schismtracker_and_depends() {
 
 build_schismtracker_appimage() {
 	cd schismtracker
-	# Download linuxdeploy
-	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-	chmod +x linuxdeploy-x86_64.AppImage
 
 	autoreconf -i
 	mkdir -p build_appimage && cd build_appimage
@@ -30,6 +27,8 @@ build_schismtracker_appimage() {
 	sed -i '/\[Desktop Action Render WAV\]/,$ s:^:# :' ./AppDir/usr/share/applications/schism.desktop
 
 	# Create the AppImage with linuxdeploy
+	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+	chmod +x linuxdeploy-x86_64.AppImage
 	export NO_APPSTREAM=1
 	./linuxdeploy-x86_64.AppImage --appdir AppDir --output appimage
 	# Update Information:
