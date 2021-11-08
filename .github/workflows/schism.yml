@@ -11,16 +11,11 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: Get CI functions
-        run: |
-          source ci_script.sh
-
-      - name: download_schismtracker_and_depends
-        run: |
-          download_schismtracker_and_depends
 
       - name: build_schismtracker_appimage
         run: |
+          source ci_script.sh
+          download_schismtracker_and_depends
           build_schismtracker_appimage
 
       - uses: actions/upload-artifact@v2
