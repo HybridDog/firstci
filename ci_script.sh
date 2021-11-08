@@ -5,7 +5,7 @@ download_schismtracker_and_depends() {
 	# Download SchismTracker
 	git clone --depth=1 https://github.com/schismtracker/schismtracker.git
 	# Install dependencies with apt
-	apt-get install build-essential automake autoconf autoconf-archive    \
+	sudo apt-get install build-essential automake autoconf autoconf-archive    \
                 libx11-dev libxext-dev libxv-dev libxxf86misc-dev     \
                 libxxf86vm-dev libsdl1.2-dev libasound2-dev mercurial \
 									libtool
