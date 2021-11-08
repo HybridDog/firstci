@@ -1,0 +1,47 @@
+name: main
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get CI functions
+        run: |
+          source ci_script.sh
+
+      - name: download_schismtracker_and_depends
+        run: |
+          download_schismtracker_and_depends
+
+      - name: build_schismtracker_appimage
+        run: |
+          build_schismtracker_appimage
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "executable"
+          path: schismtracker/build_appimage/Schism_Tracker-*.AppImage
+
+  upload:
+    name: Make Release and upload Artifacts
+    needs:
+      - build
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/download-artifact@v2
+      - name: Show artifact files
+        run: |
+          ls -alFR
+      - name: Make Release and upload Artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          wget -q https://github.com/TheAssassin/pyuploadtool/releases/download/continuous/pyuploadtool-x86_64.AppImage
+          chmod +x pyuploadtool-x86_64.AppImage
+          ./pyuploadtool-x86_64.AppImage **/Schism_Tracker-*.AppImage
